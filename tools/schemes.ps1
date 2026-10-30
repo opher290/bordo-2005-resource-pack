@@ -1,14 +1,14 @@
-# Dark shell ramps per Noctis variant. L is vanilla luminance (0-255); C is the colour it maps to.
+﻿# Dark shell ramps per Noctis variant. L is vanilla luminance (0-255); C is the colour it maps to.
 # Parchment surfaces stay on Lux creams in every variant, only the dark shell changes.
 $Schemes = @{
     bordo = @{
         Name = 'Noctis Bordo'
         L = 0, 40, 51, 61, 70, 100, 140, 190, 255
         C = '1a1516', '251d1f', '2c2324', '33292a', '3b3031', '544242', '785e5c', 'a88a86', 'e6d2cf'
-        # the 2005 compass dial: wine red and the Bordo pink accent (vanilla orange became Bordo pink everywhere else)
+        # the 2005 compass dial: Bordo wine red, with a brighter red where the original was orange
         # the 2005 parchment is a little darker than vanilla's chat fill, so the Lux cream vector is lifted to land on Bordo's fill
         Tint = @{ V = 252, 231, 184; Floor = 172; Base = 140; Slope = 0.55 }
-        Compass = @{ Red = '9e3a52'; Orange = 'f18eb0' }
+        Compass = @{ Red = '8c2f45'; Orange = 'b83a48' }
         Accent = 'f18eb0'
         Overlay = '9c322a2d'
     }
