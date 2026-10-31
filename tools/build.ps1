@@ -78,7 +78,7 @@ foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group
 foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag') { Copy-Item (Join-Path $PSScriptRoot "assets\bank\$n.png") (Join-Path $Out "bank\$n.png") -Force }
 & (Join-Path $PSScriptRoot 'depositoutline.ps1') -Pack $Out
 
-# the black drop shadow on the tab icons varies: give stats, combat, equipment, prayer and emotes the same solid 2px down-right shadow as the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, and add a soft row to the music harp
+# the black drop shadow on the tab icons varies: give stats and prayer a solid 2px, and combat and emotes a solid 1px, down-right shadow like the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, and add a soft row to the music harp
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
 
