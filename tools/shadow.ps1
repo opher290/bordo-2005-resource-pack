@@ -13,7 +13,7 @@ param(
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
     [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
     # icon = @(depth in pixels, 1 = keep notches clear, opacity 0-255 of the second pixel row if there is one): the Quests and Friends shadow, in black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(2, 1); prayer = @(2, 0); emotes = @(2, 0); sailing = @(2, 1) },
+    [hashtable] $SolidSpec = @{ combat = @(1, 1, 255, 1); prayer = @(2, 0); sailing = @(2, 1) },
     # none at the moment: the bottom-right shadow alone is the 2005 formula
     [string[]] $OutlineList = @(),
     [string[]] $Trim = @(),
@@ -144,7 +144,7 @@ public static class IconShadow
     }
     // a solid black shadow like the Quests and Friends icons: the icon's art (every opaque pixel that is not black) copied
     // down and right by 1 and 2 pixels in opaque black, only onto empty pixels, so existing outlines and shadows stay as they are
-    public static int AddSolid(string path, int depth, bool skipEnclosed, int outerAlpha)
+    public static int AddSolid(string path, int depth, bool skipEnclosed, int outerAlpha, bool dropDots)
     {
         int added = 0;
         using (var src = new Bitmap(path))
@@ -162,6 +162,27 @@ public static class IconShadow
                         if (skipEnclosed) { bool inside = false; for (int k = 1; k <= 6 && nx + k < src.Width; k++) if (src.GetPixel(nx + k, ny).A > 0) inside = true; if (inside) continue; }
                         if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(d == 1 ? 255 : outerAlpha, 0, 0, 0)); added++; }
                     }
+            if (dropDots)
+            {
+                // a lone shadow pixel (fewer than two black or shadow pixels around it) reads as a stray dot, so it is removed
+                var kill = new System.Collections.Generic.List<Point>();
+                for (int y = 0; y < bmp.Height; y++)
+                    for (int x = 0; x < bmp.Width; x++)
+                    {
+                        var c = bmp.GetPixel(x, y);
+                        if (c.A == 0 || !Black(c) || Black(src.GetPixel(x, y))) continue; // only pixels this pass added
+                        int n = 0;
+                        for (int dy = -1; dy <= 1; dy++) for (int dx = -1; dx <= 1; dx++)
+                        {
+                            if (dx == 0 && dy == 0) continue;
+                            int nx = x + dx, ny = y + dy;
+                            if (nx < 0 || ny < 0 || nx >= bmp.Width || ny >= bmp.Height) continue;
+                            if (Black(bmp.GetPixel(nx, ny))) n++;
+                        }
+                        if (n < 2) kill.Add(new Point(x, y));
+                    }
+                foreach (var p in kill) { bmp.SetPixel(p.X, p.Y, Color.FromArgb(0, 0, 0, 0)); added--; }
+            }
             src.Dispose();
             bmp.Save(path + ".tmp", ImageFormat.Png);
         }
@@ -202,5 +223,5 @@ foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconS
 foreach ($n in $TrimSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, [int]$TrimSpec[$n][0], [int]$TrimSpec[$n][1])) edge pixels trimmed" }
 foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
 foreach ($n in $OutlineList) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Outline($f)) outline pixels added" }
-foreach ($n in $SolidSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::AddSolid($f, [int]$SolidSpec[$n][0], ($SolidSpec[$n][1] -eq 1), $(if ($SolidSpec[$n].Count -gt 2) { [int]$SolidSpec[$n][2] } else { 255 }))) solid shadow pixels added" }
+foreach ($n in $SolidSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::AddSolid($f, [int]$SolidSpec[$n][0], ($SolidSpec[$n][1] -eq 1), $(if ($SolidSpec[$n].Count -gt 2) { [int]$SolidSpec[$n][2] } else { 255 }), ($SolidSpec[$n].Count -gt 3 -and $SolidSpec[$n][3] -eq 1))) solid shadow pixels added" }
 foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2], ($AddSpec[$n].Count -gt 3 -and $AddSpec[$n][3] -eq 1))) shadow pixels added" }
