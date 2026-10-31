@@ -72,5 +72,8 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 # GNASH0R's 2005 pack ships seven tab icons empty (chat channels, group ironman, red minigames); use the 2005 Overhaul pack's (by Demonseance), kept in tools\assets (as drawn, except clan_chat: moved 5px right and 2px down so it sits in the bottom-left corner stone, as GNASH0R shifts the other corner-stone icons)
 foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames') { Copy-Item (Join-Path $PSScriptRoot "assets\$n.png") (Join-Path $Out "tab\$n.png") -Force }
 
+# the black drop shadow on the tab icons varies: thin it on the inventory bag, add one to the combat swords and music harp
+& (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
