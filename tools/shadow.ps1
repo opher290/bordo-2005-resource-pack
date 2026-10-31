@@ -11,7 +11,7 @@ param(
     [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(2, 130, 8); emotes = @(1, 80, 0); prayer = @(1, 95, 0) },
+    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(2, 130, 8); emotes = @(1, 45, 0); prayer = @(1, 55, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
