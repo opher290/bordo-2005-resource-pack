@@ -13,7 +13,7 @@ param(
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
     [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
     # icon = @(depth in pixels, 1 = keep notches clear): the Quests and Friends shadow, in opaque black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(1, 1); stats = @(2, 0); prayer = @(2, 0); emotes = @(2, 0) },
+    [hashtable] $SolidSpec = @{ combat = @(1, 1); stats = @(2, 0); prayer = @(2, 0); emotes = @(2, 0); sailing = @(2, 1) },
     # icons that also get a one pixel black outline all round, so a small figure stands out like the settings wrench: the emotes figure
     [string[]] $OutlineList = @('emotes'),
     [string[]] $Trim = @('friends', 'ignores'),

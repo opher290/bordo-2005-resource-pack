@@ -7,15 +7,15 @@
 # (-MaxResidual pixels), the sprite is placed at 0,0 when the canvases are the same size and left as GNASH0R's otherwise.
 # Sprites GNASH0R leaves blank are not handled here (build.ps1 copies those from tools\assets).
 #
-# usage: overhaul.ps1 -Pack <pack dir> [-Assets <dir of Overhaul tab icons>] [-Skip name,...] [-MaxResidual 120] [-Fit sailing]
+# usage: overhaul.ps1 -Pack <pack dir> [-Assets <dir of Overhaul tab icons>] [-Skip name,...] [-MaxResidual 120] [-Fit name,...]
 param(
     [Parameter(Mandatory)] [string] $Pack,
     [string] $Assets = (Join-Path $PSScriptRoot 'assets\overhaul\tab'),
     # sprites that are blank in GNASH0R's pack or already provided from tools\assets
-    [string[]] $Skip = @('clan_channel', 'clan_chat', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames', 'quests_brown_raiding_party', 'music'),
+    [string[]] $Skip = @('clan_channel', 'clan_chat', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames', 'quests_brown_raiding_party', 'music', 'sailing'),
     [int] $MaxResidual = 120,
-    # sprites whose Overhaul drawing is a different size from GNASH0R's: scaled to the size of GNASH0R's drawing and centred on it (the sailing helm is 31px against GNASH0R's 23px anchor)
-    [string[]] $Fit = @('sailing')
+    # sprites whose Overhaul drawing is a different size from GNASH0R's: scaled to the size of GNASH0R's drawing and centred on it (none by default: the Overhaul sailing helm is 31px against GNASH0R's 23px anchor and looked rough scaled down, so the anchor is kept)
+    [string[]] $Fit = @()
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
