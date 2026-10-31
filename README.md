@@ -29,7 +29,8 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 | Chat parchment | Lux creams, keeping the original shading and torn edges, with the burnt edge moved onto the Bordo rose-greys |
 | Compass dial | Keeps its red-and-orange look, moved onto Bordo red `#8c2f45` to a brighter red `#b83a48` |
 | Overlay, borders and separators | The Vanilla Noctis Bordo pack's `vars.toml` and `overrides.toml`, unchanged |
-| Icons, emotes, prayer and quest art, selected tabs | Left exactly as the original author drew them |
+| Selected tab stones | GNASH0R's own chamfered selected stones, tinted to brick red #8f3f2a and keeping their shape, shading and outline |
+| Icons, emotes, prayer and quest art | Left exactly as the original author drew them |
 
 ## Related packs
 
@@ -41,7 +42,7 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 `tools/build.ps1` regenerates the pack from a checkout of the original (`pack-2005`):
 
 - `recolor.ps1 -Scheme bordo` recolours the shell sprites onto the Bordo ramp (`schemes.ps1`). The 2005 stone is about twice as bright as vanilla's, so with `-RefSrc` (the vanilla sample pack, passed as `-Vanilla` to `build.ps1`) each sprite is darkened to its vanilla counterpart's tone. `-MainPack` is a checkout of the main Bordo pack: its buttons, stones, bank, scrollbars, options, GE, equipment and dialog sprites are used as-is, and it fills anything the original leaves out.
-- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, and `icon.ps1` builds `icon.png`.
+- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, `stone.ps1` tints the selected-tab stones to brick red, and `icon.ps1` builds `icon.png`.
 
 ## Credits
 

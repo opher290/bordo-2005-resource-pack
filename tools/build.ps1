@@ -59,5 +59,8 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 # the parchment's burnt edge is a dark olive-brown of its own: move it onto the scheme's shell ramp
 & (Join-Path $PSScriptRoot 'chatedge.ps1') -Out $Out -Scheme $Scheme
 
+# the red selected-tab stones are tinted to brick red, keeping GNASH0R's shapes and shading
+& (Join-Path $PSScriptRoot 'stone.ps1') -Pack $Out
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
