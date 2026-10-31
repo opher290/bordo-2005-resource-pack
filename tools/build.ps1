@@ -1,4 +1,4 @@
-﻿# Rebuilds the pack from GNASH0R's 2005 pack (Resizeable): https://github.com/melkypie/resource-packs/tree/pack-2005
+# Rebuilds the pack from GNASH0R's 2005 pack (Resizeable): https://github.com/melkypie/resource-packs/tree/pack-2005
 #
 # The 2005-specific shell art (chatbox and its buttons, the frames, minimap, black steel dialog borders) is recoloured
 # to the scheme. Buttons, tab stones, bank, scrollbars, options, GE, equipment and dialog panels are taken as-is from the
@@ -39,6 +39,9 @@ Get-ChildItem $MainPack -Recurse -File | Where-Object { $_.FullName -notmatch '\
     New-Item -ItemType Directory -Force (Split-Path $dest) | Out-Null
     Copy-Item $_.FullName $dest -Force
 }
+
+# the 2005 interface has its own chamfered selected-tab stones: keep GNASH0R's shapes instead of the main pack's vanilla ones
+Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item -Destination (Join-Path $Out 'tab') -Force
 
 # recolour what stays 2005; the chat parchment and make-all fill are pure tints (Flat) so the burnt edges and texture are kept
 & (Join-Path $PSScriptRoot 'recolor.ps1') -Src $Src -Out $Out -Scheme $Scheme -RefSrc $Vanilla `
