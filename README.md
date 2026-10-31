@@ -6,7 +6,7 @@ No sprite is redrawn. The 2005-specific art keeps its original shapes, shading a
 
 ## Screenshots
 
-_Screenshots to be added._
+![Bank and chatbox in Resizeable mode](screenshots/bank.webp)
 
 ## Installation
 
@@ -48,3 +48,4 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 - **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
 - [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
+
