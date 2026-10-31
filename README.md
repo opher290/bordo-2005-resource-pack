@@ -68,8 +68,20 @@ On the opaque chatbox this pack recolours the chat text to the Bordo palette, so
 | Examine | `#000000` | `#272022` |
 | Examine highlight | `#0000FF` | `#1b4f78` |
 
-Everything else keeps its default colour, including the usernames, the filtered, autochat and trade lines, and the **transparent** chatbox. Broadcast, challenge-request and group ironman messages are coloured by your own in-game chat settings and are not affected.
+Everything else keeps its default colour.
 
+### Colours the pack cannot change
+
+A pack can only set the slots in the table above. These few chat colours come from the game or from your own settings, so you can change them yourself to match this pack:
+
+| Chat text | Where its colour comes from | Suggested to match this pack |
+| --- | --- | --- |
+| Broadcasts (server and world announcements) | Your own in-game chat colour settings | `#8f2a1c` (the message red) |
+| Challenge requests (duel and challenge invitations) | Your own in-game chat colour settings | `#8f2a1c` (the message red) |
+| What you type in the chat box | The game: blue on the opaque chatbox, light blue on the transparent one | `#1b4f78` (the pack's blue) |
+| Coloured words inside game messages (the red and green lines, cyan numbers) | The game draws them itself | Not changeable; only the highlight slots above affect words the game marks as highlighted |
+
+Clan broadcasts, group ironman chat and broadcasts, and moderator chat have no colour of their own: they reuse the clan chat, friends chat and public chat slots, so they already follow this pack's colours. Usernames, the filtered, autochat and trade lines, and the **transparent** chatbox are left at their defaults.
 ### Turning the chat colours off
 
 If you prefer your own chat colours, untick **Allow chat colors to be changed** in the Resource packs plugin settings (under *Configurable Overrides*):
