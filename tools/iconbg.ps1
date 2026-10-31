@@ -1,4 +1,4 @@
-# Moves the grey-olive square behind a few icon buttons (equipment stats, prices, items lost on death, call follower) onto
+# Moves the grey-olive square behind a few icon buttons (equipment stats, prices, items lost on death, call follower, and the sailing and combat options buttons) onto
 # the scheme's shell ramp. The icon art is left exactly as drawn: the background is found by flood-filling inwards from the
 # sprite's edge through dull, dark pixels, so the icon's own greys and browns are never touched. Alpha and pixel positions
 # are untouched.
@@ -12,7 +12,7 @@ param(
     # the flood only crosses pixels at most this saturated and this bright, which keeps it out of the icon
     [double] $MaxSat = 0.2,
     [double] $MaxLum = 105,
-    [string] $Include = '^button\\equipment_(call_follower|guide_prices|items_lost_on_death|stats_icon)\.png$'
+    [string] $Include = '^(button\\equipment_(call_follower|guide_prices|items_lost_on_death|stats_icon)|sailing\\view_(sailing|combat)_options)\.png$'
 )
 . (Join-Path $PSScriptRoot 'schemes.ps1')
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
