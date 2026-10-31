@@ -66,5 +66,8 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 & (Join-Path $PSScriptRoot 'emote.ps1') -Pack $Out -Scheme $Scheme
 & (Join-Path $PSScriptRoot 'iconbg.ps1') -Pack $Out -Scheme $Scheme
 
+# the bank PIN screen's red marble buttons and tiles are tinted, and the olive marble behind Exit moves onto the shell ramp
+& (Join-Path $PSScriptRoot 'pin.ps1') -Pack $Out -Vanilla $Vanilla -Scheme $Scheme
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
