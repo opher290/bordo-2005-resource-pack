@@ -2,7 +2,7 @@
 
 GNASH0R's [2005](https://github.com/melkypie/resource-packs/tree/pack-2005) interface, recoloured to the **Bordo** variant of the [Noctis](https://github.com/liviuschera/noctis) colour scheme for the RuneLite [Resource Packs](https://github.com/melkypie/resource-packs) plugin, with the chat parchment in Noctis **Lux** creams. Built for the Resizeable layout.
 
-No sprite is redrawn. The 2005-specific art keeps its original shapes, shading and transparency and only the colours change, while the standard buttons and stones are the same recoloured vanilla sprites as the [Vanilla Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so the two sit side by side seamlessly. The compass dial keeps its red-and-orange look in Bordo reds, and icons are left exactly as the original author drew them.
+No sprite is redrawn. The 2005-specific art keeps its original shapes, shading and transparency and only the colours change, while the standard buttons and stones are the same recoloured vanilla sprites as the [Vanilla Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so the two sit side by side seamlessly. The compass dial keeps its original red-to-orange gradient, with a wine rim and a yellow-orange centre, and icons are left exactly as the original author drew them.
 
 ## Screenshots
 
@@ -34,7 +34,7 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 | Buttons, tab stones, bank, scrollbars, checkboxes and sliders, GE, equipment slots, dialog panels | Taken as-is from the [Vanilla Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so they match it exactly |
 | Side panel, tab rows, minimap frame, window edges, the black steel dialog borders, chat buttons | The original 2005 art recoloured to the Bordo rose-greys (`#1a1516` through `#33292a` to `#a88a86`), darkened to the Vanilla Noctis Bordo pack's tone |
 | Chat parchment | Lux creams, keeping the original shading and torn edges, with the burnt edge moved onto the Bordo rose-greys |
-| Compass dial | Keeps its red-and-orange look, moved onto Bordo red `#8c2f45` to a brighter red `#b83a48` |
+| Compass dial | Keeps the original smooth gradient, from a Bordo wine rim (`#84303f`) through red-orange to a yellow-orange `#f2b13e` centre |
 | Overlay, borders and separators | The Vanilla Noctis Bordo pack's `vars.toml` and `overrides.toml`, unchanged |
 | Selected tab stones | GNASH0R's own chamfered selected stones, tinted to brick red #8f3f2a and keeping their shape, shading and outline |
 | Emote plates, and the grey squares behind the equipment stats, prices, items-lost and call-follower icons | The original grey-olive plates moved onto the Bordo rose-greys; the yellow and green labels and the icon art stay as drawn |

@@ -1,4 +1,4 @@
-﻿# Dark shell ramps per Noctis variant. L is vanilla luminance (0-255); C is the colour it maps to.
+# Dark shell ramps per Noctis variant. L is vanilla luminance (0-255); C is the colour it maps to.
 # Parchment surfaces stay on Lux creams in every variant, only the dark shell changes.
 $Schemes = @{
     bordo = @{
@@ -8,7 +8,7 @@ $Schemes = @{
         # the 2005 compass dial: Bordo wine red, with a brighter red where the original was orange
         # the 2005 parchment is a little darker than vanilla's chat fill, so the Lux cream vector is lifted to land on Bordo's fill
         Tint = @{ V = 252, 231, 184; Floor = 172; Base = 140; Slope = 0.55 }
-        Compass = @{ Red = '8c2f45'; Orange = 'b83a48' }
+        Compass = @{ Red = '8c2f45'; Orange = 'b83a48'; Stops = '30:4a1a24', '56:76283a', '65:84303f', '78:a43c38', '92:c45e2e', '107:de892c', '119:f2b13e' }
         Accent = 'f18eb0'
         Overlay = '9c322a2d'
     }
@@ -37,7 +37,7 @@ $Schemes = @{
         Tint = @{ V = 190, 173, 150; Floor = 172; Base = 138; Slope = 0.85 }
         P = 'd5c4a1', 'ebdbb2', 'f2e5bc', 'f6ecc0', 'fbf1c7'
         # the 2005 compass dial moves onto the palette's red and orange
-        Compass = @{ Red = 'cc241d'; Orange = 'fe8019' }
+        Compass = @{ Red = 'cc241d'; Orange = 'fe8019'; Stops = '30:6a1d18', '56:9d2a1a', '78:c2411a', '92:d65d0e', '107:e87414', '119:fe8019' }
         Accent = 'fe8019'
         Overlay = '9c1d2021'
     }
