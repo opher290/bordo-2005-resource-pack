@@ -75,8 +75,6 @@ foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group
 # the black drop shadow on the tab icons varies: thin it a little on the inventory bag and the friends smiley, thin the settings wrench, and add a blotchy one to the combat swords, music harp and emotes figure
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
-# line the stone tab icons up vertically (whole-icon moves only, no resizing)
-& (Join-Path $PSScriptRoot 'align.ps1') -Pack $Out
 
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
