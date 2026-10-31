@@ -86,7 +86,7 @@ foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag', 
 # the music harp sits better in the brick red corner stone one pixel up and two left, and the sailing anchor two pixels up
 & (Join-Path $PSScriptRoot 'nudge.ps1') -Pack $Out
 
-# the black drop shadow on the tab icons varies: give stats and prayer a solid 2px, combat a solid 1px and the sailing anchor a solid 1px plus a softer second pixel, down-right shadow like the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, add a soft row to the music harp and give the emotes figure a black outline and a 2px shadow
+# the black drop shadow on the tab icons varies: give stats and prayer a solid 2px, combat a solid 1px and the sailing anchor a solid 1px plus a softer second pixel, down-right shadow like the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, add a soft row to the music harp and give the emotes figure a solid pixel and a softer pixel of shadow
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
 
