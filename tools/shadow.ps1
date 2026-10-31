@@ -10,8 +10,8 @@ param(
     [Parameter(Mandatory)] [string] $Pack,
     [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
     [int] $ReduceLayers = 1,
-    # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ combat = @(2, 150, 25); music = @(2, 150, 25); emotes = @(2, 110, 15); prayer = @(1, 130, 0) },
+    # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
+    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(2, 130, 8); emotes = @(1, 80, 0); prayer = @(1, 95, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
@@ -110,7 +110,7 @@ public static class IconShadow
         return removed;
     }
 
-    public static int Add(string path, int depth, int alpha, int outerChance)
+    public static int Add(string path, int depth, int alpha, int outerChance, bool skipEnclosed)
     {
         int added = 0;
         using (var src = new Bitmap(path))
@@ -125,6 +125,8 @@ public static class IconShadow
                         int nx = x + d, ny = y + d;
                         if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
                         if (d > 1 && H(nx, ny) >= outerChance) continue;
+                        // a notch between two parts of the icon (the swords' crossing) stays clear: skip a shadow pixel with icon art within 6 pixels to its right
+                        if (skipEnclosed) { bool inside = false; for (int k = 1; k <= 6 && nx + k < src.Width; k++) if (src.GetPixel(nx + k, ny).A > 0) inside = true; if (inside) continue; }
                         if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(alpha, 0, 0, 0)); added++; }
                     }
             src.Dispose();
@@ -140,4 +142,4 @@ $Pack = (Get-Item $Pack).FullName
 foreach ($n in $ReduceSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, [int]$ReduceSpec[$n][0], [int]$ReduceSpec[$n][1])) shadow pixels removed" }
 foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
 foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
-foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2])) shadow pixels added" }
+foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2], ($AddSpec[$n].Count -gt 3 -and $AddSpec[$n][3] -eq 1))) shadow pixels added" }
