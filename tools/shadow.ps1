@@ -1,17 +1,19 @@
 # Evens out the black drop shadow on a few 2005 tab icons. GNASH0R's icons carry a black shadow along their bottom and right
 # edges, but the amount varies: the inventory bag has a thick one, the combat swords and the music harp have almost none.
 #
-#   -Reduce: strips the outermost layer(s) of the black shadow from the bottom and right of an icon (inventory)
-#   -Add:    draws a black shadow behind an icon, as a copy of its silhouette moved 1 and 2 pixels down and right
+#   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is at least -MinThickness pixels thick
+#   -Add:    draws a soft black shadow behind an icon, as a copy of its silhouette moved -AddDepth pixels down and right, at -AddAlpha opacity
 #            (combat, music); the icon itself is never touched
 #
-# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-Add combat,music] [-AddDepth 2]
+# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Add combat,music] [-AddDepth 1] [-AddAlpha 150]
 param(
     [Parameter(Mandatory)] [string] $Pack,
     [string[]] $Reduce = @('inventory'),
     [int] $ReduceLayers = 1,
     [string[]] $Add = @('combat', 'music'),
-    [int] $AddDepth = 2
+    [int] $AddDepth = 1,
+    [int] $MinThickness = 2,
+    [int] $AddAlpha = 150
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
@@ -22,7 +24,7 @@ public static class IconShadow
 {
     static bool Black(Color c) { return c.A > 0 && c.R + c.G + c.B <= 12; }
 
-    public static int Reduce(string path, int layers)
+    public static int Reduce(string path, int layers, int minThick)
     {
         int removed = 0;
         using (var src = new Bitmap(path))
@@ -42,7 +44,7 @@ public static class IconShadow
                             int nx = x + d.X, ny = y + d.Y;
                             if (nx >= bmp.Width || ny >= bmp.Height || bmp.GetPixel(nx, ny).A == 0) { open = true; break; }
                         }
-                        if (open) kill.Add(new Point(x, y));
+                        if (open) { int th = 0; int tx = x, ty = y; while (tx >= 0 && ty >= 0 && Black(bmp.GetPixel(tx, ty))) { th++; tx--; ty--; } if (th >= minThick) kill.Add(new Point(x, y)); }
                     }
                 foreach (var p in kill) { bmp.SetPixel(p.X, p.Y, Color.FromArgb(0, 0, 0, 0)); removed++; }
             }
@@ -53,7 +55,7 @@ public static class IconShadow
         return removed;
     }
 
-    public static int Add(string path, int depth)
+    public static int Add(string path, int depth, int alpha)
     {
         int added = 0;
         using (var src = new Bitmap(path))
@@ -67,7 +69,7 @@ public static class IconShadow
                         if (src.GetPixel(x, y).A == 0) continue;
                         int nx = x + d, ny = y + d;
                         if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
-                        if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(255, 0, 0, 0)); added++; }
+                        if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(alpha, 0, 0, 0)); added++; }
                     }
             src.Dispose();
             bmp.Save(path + ".tmp", ImageFormat.Png);
@@ -79,5 +81,5 @@ public static class IconShadow
 '@
 
 $Pack = (Get-Item $Pack).FullName
-foreach ($n in $Reduce) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers)) shadow pixels removed" }
-foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth)) shadow pixels added" }
+foreach ($n in $Reduce) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, $MinThickness)) shadow pixels removed" }
+foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth, $AddAlpha)) shadow pixels added" }
