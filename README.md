@@ -64,7 +64,7 @@ On the opaque chatbox this pack recolours the chat text to the Bordo palette, so
 | **Game and system messages** | | |
 | Server message | `#000000` | `#272022` |
 | Game message | `#000000` | `#272022` |
-| Game message highlight | `#EF1020` | `#e97749` |
+| Game message highlight | `#EF1020` | `#e34e1c` |
 | Examine | `#000000` | `#272022` |
 | Examine highlight | `#0000FF` | `#1b4f78` |
 
