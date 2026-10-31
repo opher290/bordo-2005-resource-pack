@@ -8,6 +8,10 @@ No sprite is redrawn. The 2005-specific art keeps its original shapes, shading a
 
 ![Bank and chatbox in Resizeable mode](screenshots/bank.webp)
 
+## Resizeable vs Fixed Mode
+
+This pack and its [Noctis Bordo 2005 Fixed Mode](https://github.com/opher290/bordo-2005-fixed-mode-resource-pack) sibling share the same art. The main difference is the chatbox area. The Fixed Mode pack can be used in Resizeable mode too, but the chatbox looks much nicer with this Resizeable pack, so use this one when playing in Resizeable mode.
+
 ## Installation
 
 Install the **Resource packs** plugin from the Plugin Hub, then install this pack from its hub. To use the 2005 interface style correctly, follow GNASH0R's setup from the original 2005 packs:
@@ -49,6 +53,7 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 - **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
 - [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
+
 
 
 
