@@ -34,8 +34,9 @@ On the opaque chatbox this pack recolours the chat text to the Bordo palette:
 | Text | Colour |
 | --- | --- |
 | Public chat, channel names, examine highlights | `#1b4f78` |
-| Private messages, friends / clan / guest clan chat messages | `#e34e1c` |
+| Private messages, friends / clan / guest clan chat messages | `#8f2a1c` |
 | Game and examine highlights | `#e97749` |
+| Friends / clan / guest clan info highlights | `#8c2f45` |
 | Private message highlights | `#174a73` |
 | Game, server, examine and info text, other highlights | `#272022` |
 
