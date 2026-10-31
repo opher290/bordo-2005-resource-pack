@@ -8,12 +8,12 @@
 # usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-AddSpec @{ combat = @(2,150,25); ... }]
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
+    [hashtable] $ReduceSpec = @{ inventory = @(2, 100); emotes = @(1, 100) },
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
+    [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1); emotes = @(1, 90, 0) },
     # icon = @(depth in pixels, 1 = keep notches clear): the Quests and Friends shadow, in opaque black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(1, 1); stats = @(2, 0); prayer = @(2, 0); emotes = @(1, 0) },
+    [hashtable] $SolidSpec = @{ combat = @(1, 1); stats = @(2, 0); prayer = @(2, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
