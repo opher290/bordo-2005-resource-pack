@@ -55,10 +55,8 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 
 ## Credits
 
+All credit for the base goes to **GNASH0R**, whose [2005](https://github.com/melkypie/resource-packs/tree/pack-2005) pack provides the interface art, layout and icons, and to the [Resource Packs](https://github.com/melkypie/resource-packs) plugin by melkypie. This pack only recolours (filters) that work and applies a few minor fixes; no sprite is redrawn.
+
 - **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
+- **melkypie** for the [Resource Packs](https://github.com/melkypie/resource-packs) plugin and the vanilla sample pack.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
-- [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
-
-
-
-
