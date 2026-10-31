@@ -8,15 +8,17 @@
 # usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-AddSpec @{ combat = @(2,150,25); ... }]
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [hashtable] $ReduceSpec = @{ inventory = @(2, 100); prayer = @(1, 70); emotes = @(1, 65) },
+    [hashtable] $ReduceSpec = @{ inventory = @(2, 100); prayer = @(1, 100); emotes = @(1, 100) },
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(2, 130, 8); emotes = @(1, 40, 0); prayer = @(1, 40, 0) },
+    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(1, 120, 0, 1); emotes = @(1, 90, 0); prayer = @(1, 90, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
     # icon = @(minimum run length, % of runs to shorten); the settings wrench
-    [hashtable] $RunsSpec = @{ options = @(3, 70) }
+    [hashtable] $RunsSpec = @{},
+    # icon = @(most black pixels kept on the left, on the right) of each row; the settings wrench ends up with an even 2px shadow
+    [hashtable] $TrimSpec = @{ options = @(1, 2) }
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
@@ -141,5 +143,6 @@ public static class IconShadow
 $Pack = (Get-Item $Pack).FullName
 foreach ($n in $ReduceSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, [int]$ReduceSpec[$n][0], [int]$ReduceSpec[$n][1])) shadow pixels removed" }
 foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
+foreach ($n in $TrimSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, [int]$TrimSpec[$n][0], [int]$TrimSpec[$n][1])) edge pixels trimmed" }
 foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
 foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2], ($AddSpec[$n].Count -gt 3 -and $AddSpec[$n][3] -eq 1))) shadow pixels added" }
