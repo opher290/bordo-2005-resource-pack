@@ -6,12 +6,12 @@
 # (-Flatten) so the darker patches along the tears stop standing out. Where the sprite has a dark outline round the torn
 # edge (the 2005 chat box), the outline is blended part of the way towards the cream (-Soften) instead of staying near black.
 #
-# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.6] [-Soften 0.85] [-Cutoff 120] [-Files chatbox\background.png,chatbox\make_all_background.png]
+# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.25] [-Soften 0.85] [-Cutoff 120] [-Files chatbox\background.png,chatbox\make_all_background.png]
 param(
     [Parameter(Mandatory)] [string] $Out,
     [string] $Cream = 'e6d7b2',
     # 1 keeps the parchment's blotches as they are, 0 removes them
-    [double] $Flatten = 0.6,
+    [double] $Flatten = 0.25,
     # 0 keeps the outline as it is, 1 turns it into the cream
     [double] $Soften = 0.85,
     # brightness below which a pixel is outline or frame
