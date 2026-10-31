@@ -1,10 +1,10 @@
 # Moves a tab icon a few pixels inside its sprite, without touching a single pixel of the drawing: every pixel keeps its colour
 # and alpha and only its position changes. Used to sit an icon a little better in its stone.
 #
-# usage: nudge.ps1 -Pack <pack dir> [-Spec @{ music = @(2, -1) }]     (icon = @(pixels right, pixels down))
+# usage: nudge.ps1 -Pack <pack dir> [-Spec @{ music = @(-2, -1); sailing = @(0, -2) }]     (icon = @(pixels right, pixels down))
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [hashtable] $Spec = @{ music = @(2, -1) }
+    [hashtable] $Spec = @{ music = @(-2, -1); sailing = @(0, -2) }
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
