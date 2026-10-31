@@ -12,7 +12,7 @@ param(
     [Parameter(Mandatory)] [string] $Pack,
     [string] $Assets = (Join-Path $PSScriptRoot 'assets\overhaul\tab'),
     # sprites that are blank in GNASH0R's pack or already provided from tools\assets
-    [string[]] $Skip = @('clan_channel', 'clan_chat', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames', 'quests_brown_raiding_party', 'music', 'sailing'),
+    [string[]] $Skip = @('clan_channel', 'clan_chat', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames', 'quests_brown_raiding_party', 'music', 'sailing', 'account_management'),
     [int] $MaxResidual = 120,
     # sprites whose Overhaul drawing is a different size from GNASH0R's: scaled to the size of GNASH0R's drawing and centred on it (none by default: the Overhaul sailing helm is 31px against GNASH0R's 23px anchor and looked rough scaled down, so the anchor is kept)
     [string[]] $Fit = @()

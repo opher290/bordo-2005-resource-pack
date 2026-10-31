@@ -13,10 +13,10 @@ param(
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
     [hashtable] $AddSpec = @{},
     # icon = @(depth in pixels, 1 = keep notches clear, opacity 0-255 of the second pixel row if there is one): the Quests and Friends shadow, in black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(2, 1); quests = @(2, 0); inventory = @(2, 0); equipment = @(2, 0); prayer = @(2, 0); magic = @(2, 0); friends = @(2, 0); ignores = @(2, 0); account_management = @(2, 0); emotes = @(2, 0); music = @(2, 0); sailing = @(2, 1) },
-    # the settings wrench style: a one pixel black outline all round, then the shadow above (the stats icon, the skills, gets no treatment at all and the Log out icon is not treated yet)
-    [string[]] $OutlineList = @('combat', 'quests', 'inventory', 'equipment', 'prayer', 'magic', 'friends', 'ignores', 'account_management', 'emotes', 'music', 'sailing'),
-    [string[]] $Trim = @('friends', 'ignores'),
+    [hashtable] $SolidSpec = @{ combat = @(2, 1); inventory = @(2, 0); prayer = @(2, 0); emotes = @(2, 0); sailing = @(2, 1) },
+    # none at the moment: the bottom-right shadow alone is the 2005 formula
+    [string[]] $OutlineList = @(),
+    [string[]] $Trim = @(),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
     # icon = @(minimum run length, % of runs to shorten); the settings wrench

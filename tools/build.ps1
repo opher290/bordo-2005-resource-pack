@@ -80,13 +80,13 @@ foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group
 foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag', 'worn_items') { Copy-Item (Join-Path $PSScriptRoot "assets\bank\$n.png") (Join-Path $Out "bank\$n.png") -Force }
 & (Join-Path $PSScriptRoot 'depositoutline.ps1') -Pack $Out
 
-# the 2005 Overhaul pack's tab icons (by Demonseance), placed exactly where GNASH0R has each icon so the resizable layout keeps its alignment (the music harp and the sailing anchor stay GNASH0R's)
+# the 2005 Overhaul pack's tab icons (by Demonseance), placed exactly where GNASH0R has each icon so the resizable layout keeps its alignment (the music harp, the sailing anchor and Account management stay GNASH0R's)
 & (Join-Path $PSScriptRoot 'overhaul.ps1') -Pack $Out
 
 # the music harp sits better in the brick red corner stone one pixel up and two left, and the sailing anchor two pixels up
 & (Join-Path $PSScriptRoot 'nudge.ps1') -Pack $Out
 
-# every tab icon except Skills, Log out and the settings wrench itself gets the wrench's outline and shadow: a one pixel black outline all round and a two pixel shadow down and to the right
+# the 2005 shadow formula, a solid black shadow two pixels deep down and to the right, for the icons that lack it: combat, inventory, prayer, emotes and the sailing anchor
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
 
