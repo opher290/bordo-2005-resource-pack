@@ -31,18 +31,50 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 
 ## Chat colours
 
-On the opaque chatbox this pack recolours the chat text to the Bordo palette:
+On the opaque chatbox this pack recolours the chat text to the Bordo palette, so it reads on the light Lux parchment. Here is what changed, from the default colour to the one this pack uses:
 
-| Text | Colour |
-| --- | --- |
-| Public chat, channel names, examine highlights | `#1b4f78` |
-| Private messages, friends / clan / guest clan chat messages | `#8f2a1c` |
-| Game and examine highlights | `#e97749` |
-| Friends / clan / guest clan info highlights | `#8c2f45` |
-| Private message highlights | `#174a73` |
-| Game, server, examine and info text, other highlights | `#272022` |
+| Chat text | Before (default) | Current |
+| --- | --- | --- |
+| **Public chat** | | |
+| Public chat | `#0000FF` | `#1b4f78` |
+| Public chat highlight | `#000000` | `#272022` |
+| **Private messages** | | |
+| Sent private messages | `#7F0000` | `#8f2a1c` |
+| Sent private messages highlight | `#002783` | `#174a73` |
+| Received private messages | `#7F0000` | `#8f2a1c` |
+| Received private messages highlight | `#002783` | `#174a73` |
+| **Friends chat** | | |
+| Friends chat info | `#000000` | `#272022` |
+| Friends chat info highlight | `#FF0000` | `#8c2f45` |
+| Friends chat message | `#7F0000` | `#8f2a1c` |
+| Friends chat message highlight | `#000000` | `#272022` |
+| Friends chat channel name | `#0000FF` | `#1b4f78` |
+| **Clan chat** | | |
+| Clan chat info | `#000000` | `#272022` |
+| Clan chat info highlight | `#FF0000` | `#8c2f45` |
+| Clan chat message | `#7F0000` | `#8f2a1c` |
+| Clan chat message highlight | `#000000` | `#272022` |
+| Clan chat channel name | `#0000FF` | `#1b4f78` |
+| **Guest clan chat** | | |
+| Guest clan chat info | `#000000` | `#272022` |
+| Guest clan chat info highlight | `#FF0000` | `#8c2f45` |
+| Guest clan chat message | `#7F0000` | `#8f2a1c` |
+| Guest clan chat message highlight | `#000000` | `#272022` |
+| Guest clan chat channel name | `#0000FF` | `#1b4f78` |
+| **Game and system messages** | | |
+| Server message | `#000000` | `#272022` |
+| Game message | `#000000` | `#272022` |
+| Game message highlight | `#EF1020` | `#e97749` |
+| Examine | `#000000` | `#272022` |
+| Examine highlight | `#0000FF` | `#1b4f78` |
 
-The transparent chatbox keeps its default colours. If you prefer your own chat colours, turn off **Allow chat colors to be changed** in the Resource packs plugin settings.
+Everything else keeps its default colour, including the usernames, the filtered, autochat and trade lines, and the **transparent** chatbox. Broadcast, challenge-request and group ironman messages are coloured by your own in-game chat settings and are not affected.
+
+### Turning the chat colours off
+
+If you prefer your own chat colours, untick **Allow chat colors to be changed** in the Resource packs plugin settings (under *Configurable Overrides*):
+
+![The Allow chat colors to be changed setting, unticked](screenshots/allow-chat-colors.png)
 ## What changes
 
 | Area | Source |
