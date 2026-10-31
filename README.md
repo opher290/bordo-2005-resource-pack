@@ -4,6 +4,8 @@ GNASH0R's [2005](https://github.com/melkypie/resource-packs/tree/pack-2005) inte
 
 No sprite is redrawn. The 2005-specific art keeps its original shapes, shading and transparency and only the colours change, while the standard buttons and stones are the same recoloured vanilla sprites as the [Vanilla Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so the two sit side by side seamlessly. The compass dial keeps its original red-to-orange gradient, with a wine rim and a yellow-orange centre, and icons are left exactly as the original author drew them.
 
+**Why is the chatbox light?** The chatbox is deliberately not dark. It is inspired by Noctis **Lux**, the light Noctis variant, so the chat parchment uses Lux's warm cream (`#e6d7b2`) and the Bordo wine, red and blue chat text sits on it with good contrast, while the rest of the interface stays on the dark Bordo rose-greys.
+
 ## Screenshots
 
 ![Bank and chatbox in Resizeable mode](screenshots/bank.webp)
