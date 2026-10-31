@@ -8,10 +8,12 @@
 # usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-AddSpec @{ combat = @(2,150,25); ... }]
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [hashtable] $ReduceSpec = @{ inventory = @(2, 100); prayer = @(1, 100); emotes = @(1, 100) },
+    [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ combat = @(1, 150, 0, 1); music = @(1, 120, 0, 1); emotes = @(1, 90, 0); prayer = @(1, 90, 0) },
+    [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
+    # icon = @(depth in pixels, 1 = keep notches clear): the Quests and Friends shadow, in opaque black, so the icons share one amount and angle
+    [hashtable] $SolidSpec = @{ combat = @(2, 1); stats = @(2, 0); equipment = @(2, 0); prayer = @(2, 0); emotes = @(2, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
@@ -112,6 +114,32 @@ public static class IconShadow
         return removed;
     }
 
+    // a solid black shadow like the Quests and Friends icons: the icon's art (every opaque pixel that is not black) copied
+    // down and right by 1 and 2 pixels in opaque black, only onto empty pixels, so existing outlines and shadows stay as they are
+    public static int AddSolid(string path, int depth, bool skipEnclosed)
+    {
+        int added = 0;
+        using (var src = new Bitmap(path))
+        using (var bmp = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb))
+        {
+            for (int y = 0; y < src.Height; y++) for (int x = 0; x < src.Width; x++) bmp.SetPixel(x, y, src.GetPixel(x, y));
+            for (int d = 1; d <= depth; d++)
+                for (int y = 0; y < src.Height; y++)
+                    for (int x = 0; x < src.Width; x++)
+                    {
+                        var c = src.GetPixel(x, y);
+                        if (c.A == 0 || Black(c)) continue;
+                        int nx = x + d, ny = y + d;
+                        if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
+                        if (skipEnclosed) { bool inside = false; for (int k = 1; k <= 6 && nx + k < src.Width; k++) if (src.GetPixel(nx + k, ny).A > 0) inside = true; if (inside) continue; }
+                        if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(255, 0, 0, 0)); added++; }
+                    }
+            src.Dispose();
+            bmp.Save(path + ".tmp", ImageFormat.Png);
+        }
+        System.IO.File.Delete(path); System.IO.File.Move(path + ".tmp", path);
+        return added;
+    }
     public static int Add(string path, int depth, int alpha, int outerChance, bool skipEnclosed)
     {
         int added = 0;
@@ -145,4 +173,5 @@ foreach ($n in $ReduceSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.pn
 foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
 foreach ($n in $TrimSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, [int]$TrimSpec[$n][0], [int]$TrimSpec[$n][1])) edge pixels trimmed" }
 foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
+foreach ($n in $SolidSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::AddSolid($f, [int]$SolidSpec[$n][0], ($SolidSpec[$n][1] -eq 1))) solid shadow pixels added" }
 foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2], ($AddSpec[$n].Count -gt 3 -and $AddSpec[$n][3] -eq 1))) shadow pixels added" }
