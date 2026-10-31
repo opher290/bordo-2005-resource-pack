@@ -63,8 +63,10 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 & (Join-Path $PSScriptRoot 'stone.ps1') -Pack $Out
 
 # the grey-olive plates behind the emote labels and a few icon buttons move onto the shell ramp; the label text and icon art stay as drawn
-# Bordo's chat parchment is Noctis Lux inspired: lift the fill onto the Lux cream and soften the dark outline round the torn edge
-if ($Scheme -eq 'bordo') { & (Join-Path $PSScriptRoot 'chatfill.ps1') -Out $Out }
+# the chat parchment is lifted onto the scheme's light cream (Noctis Lux for Bordo, Gruvbox light for Gruvbox) and the dark outline round the torn edge is blended into it
+. (Join-Path $PSScriptRoot 'schemes.ps1')
+$cf = $Schemes[$Scheme].ChatFill
+if ($cf) { & (Join-Path $PSScriptRoot 'chatfill.ps1') -Out $Out -Cream $cf.Cream -FillMin $cf.FillMin -FillMax $cf.FillMax -Cutoff $cf.Cutoff }
 & (Join-Path $PSScriptRoot 'emote.ps1') -Pack $Out -Scheme $Scheme
 & (Join-Path $PSScriptRoot 'iconbg.ps1') -Pack $Out -Scheme $Scheme
 

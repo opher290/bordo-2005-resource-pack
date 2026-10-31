@@ -6,7 +6,7 @@
 # (-Flatten) so the darker patches along the tears stop standing out. Where the sprite has a dark outline round the torn
 # edge (the 2005 chat box), the outline is blended part of the way towards the cream (-Soften) instead of staying near black.
 #
-# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.25] [-Soften 0.85] [-Cutoff 120] [-Files chatbox\background.png,chatbox\make_all_background.png]
+# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.25] [-Soften 0.85] [-Cutoff 120] [-FillMin 150] [-FillMax 215] [-Files chatbox\background.png,chatbox\make_all_background.png]
 param(
     [Parameter(Mandatory)] [string] $Out,
     [string] $Cream = 'e6d7b2',
@@ -16,6 +16,9 @@ param(
     [double] $Soften = 0.85,
     # brightness below which a pixel is outline or frame
     [double] $Cutoff = 120,
+    # brightness range of the parchment fill (the Gruvbox parchment is darker than Bordo's)
+    [double] $FillMin = 150,
+    [double] $FillMax = 215,
     # sprites to lift, relative to the pack folder; the Make-all panel sits in the chat area and must match
     [string[]] $Files = @('chatbox\background.png', 'chatbox\make_all_background.png')
 )
@@ -29,7 +32,7 @@ public static class ChatFill
 {
     static double Lum(byte[] px, int i) { return 0.299 * px[i + 2] + 0.587 * px[i + 1] + 0.114 * px[i]; }
 
-    public static string Apply(string path, int[] cream, double flatten, double soften, double cutoff)
+    public static string Apply(string path, int[] cream, double flatten, double soften, double cutoff, double fillMin, double fillMax)
     {
         int fill = 0, outline = 0;
         using (var src = new Bitmap(path))
@@ -47,7 +50,7 @@ public static class ChatFill
             {
                 if (px[i + 3] == 0) continue;
                 double lum = Lum(px, i);
-                if (lum >= 150 && lum <= 215 && px[i + 2] > px[i + 1] && px[i + 1] > px[i]) { sum += lum; cnt++; }
+                if (lum >= fillMin && lum <= fillMax && px[i + 2] > px[i + 1] && px[i + 1] > px[i]) { sum += lum; cnt++; }
             }
             if (cnt == 0) return "no parchment in this sprite, left as it is";
             double refLum = sum / cnt;
@@ -58,7 +61,7 @@ public static class ChatFill
                 if (px[i + 3] == 0) continue;
                 double lum = Lum(px, i);
                 bool tan = px[i + 2] > px[i + 1] && px[i + 1] > px[i];
-                if (lum >= 150 && lum <= 215 && tan)
+                if (lum >= fillMin && lum <= fillMax && tan)
                 {
                     double r = 1 + (lum / refLum - 1) * flatten;
                     for (int c = 0; c < 3; c++) px[i + 2 - c] = (byte)Math.Max(0, Math.Min(255, Math.Round(cream[c] * r)));
@@ -84,4 +87,4 @@ public static class ChatFill
 
 $Out = (Get-Item $Out).FullName
 $rgb = [int[]]@([Convert]::ToInt32($Cream.Substring(0, 2), 16), [Convert]::ToInt32($Cream.Substring(2, 2), 16), [Convert]::ToInt32($Cream.Substring(4, 2), 16))
-foreach ($f in $Files) { "${f}: " + [ChatFill]::Apply((Join-Path $Out $f), $rgb, $Flatten, $Soften, $Cutoff) }
+foreach ($f in $Files) { "${f}: " + [ChatFill]::Apply((Join-Path $Out $f), $rgb, $Flatten, $Soften, $Cutoff, $FillMin, $FillMax) }
