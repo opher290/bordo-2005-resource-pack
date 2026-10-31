@@ -12,6 +12,8 @@ $Schemes = @{
         Accent = 'f18eb0'
         # the chat parchment is lifted onto this cream (Noctis Lux tab.border); the fill is the sprite's tan between these brightnesses
         ChatFill = @{ Cream = 'e6d7b2'; FillMin = 150; FillMax = 215; Cutoff = 120 }
+        # the Make-all item buttons get a face this much darker than the chat cream
+        MakeAll = @{ Face = 'd6c59c' }
         Overlay = '9c322a2d'
     }
     # Noctis (default): sideBar #041d20, editor #052529, tab #062e32, hover #0b515b
@@ -43,6 +45,8 @@ $Schemes = @{
         Accent = 'fe8019'
         # the chat parchment is lifted onto this cream (Gruvbox light bg1, to match the Gruvbox light theme); the fill is the sprite's tan between these brightnesses
         ChatFill = @{ Cream = 'ebdbb2'; FillMin = 100; FillMax = 190; Cutoff = 100 }
+        # the Make-all item buttons get a face this much darker than the chat cream
+        MakeAll = @{ Face = 'd5c4a1' }
         Overlay = '9c1d2021'
     }
 }

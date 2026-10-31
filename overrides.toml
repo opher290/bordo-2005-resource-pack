@@ -567,11 +567,11 @@ color="${color.border_outer_2}"
 opacity="${opacity.opaque}"
 
 [make_all.background]
-color="${color.background_5}"
+color="${color.make_all_selected}"
 opacity="${opacity.opaque}"
 
 [make_all.quantity]
-color="${color.background_5}"
+color="${color.make_all_selected}"
 opacity="${opacity.opaque}"
 
 [minigame_teleports.border.inner]
