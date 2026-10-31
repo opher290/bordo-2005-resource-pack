@@ -27,6 +27,19 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 - **Resizable - Modern layout** works, but it doesn't look its best. Interface Styles' 2005 gameframe and the 2005 sprites are placed for the classic layouts, so in Modern the tab icons don't sit centred on their stones.
 - **Fixed - Classic layout** isn't supported yet. A Fixed - Classic version may come in the future.
 
+## Chat colours
+
+On the opaque chatbox this pack recolours the chat text to the Bordo palette:
+
+| Text | Colour |
+| --- | --- |
+| Public chat, channel names, examine highlights | `#49ace9` |
+| Private messages, friends / clan / guest clan chat messages | `#e66533` |
+| Game and examine highlights | `#e97749` |
+| Private message highlights | `#0094f0` |
+| Game, server, examine and info text, other highlights | `#272022` |
+
+The transparent chatbox keeps its default colours. If you prefer your own chat colours, turn off **Allow chat colors to be changed** in the Resource packs plugin settings.
 ## What changes
 
 | Area | Source |
