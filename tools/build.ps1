@@ -74,6 +74,10 @@ if ($Scheme -eq 'bordo') { & (Join-Path $PSScriptRoot 'chatfill.ps1') -Out $Out 
 # GNASH0R's 2005 pack ships seven tab icons empty (chat channels, group ironman, red minigames); use the 2005 Overhaul pack's (by Demonseance), kept in tools\assets (as drawn, except clan_chat: moved 5px right and 2px down so it sits in the bottom-left corner stone, as GNASH0R shifts the other corner-stone icons)
 foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group_ironman', 'unranked_group_ironman', 'hardcore_group_ironman', 'quests_red_minigames') { Copy-Item (Join-Path $PSScriptRoot "assets\$n.png") (Join-Path $Out "tab\$n.png") -Force }
 
+# the three Deposit buttons in the bank are the 2005 Overhaul pack's (by Demonseance), cleaner than the original; the Deposit inventory bag is drawn without the black outline every other icon has, so it gets one
+foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag') { Copy-Item (Join-Path $PSScriptRoot "assets\bank\$n.png") (Join-Path $Out "bank\$n.png") -Force }
+& (Join-Path $PSScriptRoot 'depositoutline.ps1') -Pack $Out
+
 # the black drop shadow on the tab icons varies: give stats, combat, equipment, prayer and emotes the same solid 2px down-right shadow as the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, and add a soft row to the music harp
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
