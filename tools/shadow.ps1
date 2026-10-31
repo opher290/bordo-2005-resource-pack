@@ -2,10 +2,10 @@
 # edges, but the amount varies: the inventory bag has a thick one, the combat swords and the music harp have almost none.
 #
 #   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is at least -MinThickness pixels thick
-#   -Add:    draws a soft black shadow behind an icon, as a copy of its silhouette moved -AddDepth pixels down and right, at -AddAlpha opacity
+#   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to match the quests icon: -TrimLeft 1, -TrimRight 2`n#   -Add:    draws a soft black shadow behind an icon, as a copy of its silhouette moved -AddDepth pixels down and right, at -AddAlpha opacity
 #            (combat, music); the icon itself is never touched
 #
-# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Add combat,music] [-AddDepth 1] [-AddAlpha 150]
+# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 2] [-Add combat,music] [-AddDepth 1] [-AddAlpha 150]
 param(
     [Parameter(Mandatory)] [string] $Pack,
     [string[]] $Reduce = @('inventory'),
@@ -13,7 +13,10 @@ param(
     [string[]] $Add = @('combat', 'music'),
     [int] $AddDepth = 1,
     [int] $MinThickness = 2,
-    [int] $AddAlpha = 150
+    [int] $AddAlpha = 150,
+    [string[]] $Trim = @('friends', 'ignores'),
+    [int] $TrimLeft = 1,
+    [int] $TrimRight = 2
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
@@ -55,6 +58,31 @@ public static class IconShadow
         return removed;
     }
 
+    // caps how many black pixels sit on the outer left and right edge of each row that also has icon art in it
+    public static int Trim(string path, int leftMax, int rightMax)
+    {
+        int removed = 0;
+        using (var src = new Bitmap(path))
+        using (var bmp = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb))
+        {
+            for (int y = 0; y < src.Height; y++) for (int x = 0; x < src.Width; x++) bmp.SetPixel(x, y, src.GetPixel(x, y));
+            for (int y = 0; y < src.Height; y++)
+            {
+                int x0 = -1, x1 = -1, art = 0;
+                for (int x = 0; x < src.Width; x++) { var c = src.GetPixel(x, y); if (c.A == 0) continue; if (x0 < 0) x0 = x; x1 = x; if (!Black(c)) art++; }
+                if (art < 4) continue;
+                int run = 0; for (int x = x0; x <= x1 && Black(src.GetPixel(x, y)); x++) run++;
+                for (int i = 0; i < run - leftMax; i++) { bmp.SetPixel(x0 + i, y, Color.FromArgb(0, 0, 0, 0)); removed++; }
+                run = 0; for (int x = x1; x >= x0 && Black(src.GetPixel(x, y)); x--) run++;
+                for (int i = 0; i < run - rightMax; i++) { bmp.SetPixel(x1 - i, y, Color.FromArgb(0, 0, 0, 0)); removed++; }
+            }
+            src.Dispose();
+            bmp.Save(path + ".tmp", ImageFormat.Png);
+        }
+        System.IO.File.Delete(path); System.IO.File.Move(path + ".tmp", path);
+        return removed;
+    }
+
     public static int Add(string path, int depth, int alpha)
     {
         int added = 0;
@@ -82,4 +110,5 @@ public static class IconShadow
 
 $Pack = (Get-Item $Pack).FullName
 foreach ($n in $Reduce) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, $MinThickness)) shadow pixels removed" }
+foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
 foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth, $AddAlpha)) shadow pixels added" }
