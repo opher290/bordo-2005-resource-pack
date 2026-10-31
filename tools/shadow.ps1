@@ -1,23 +1,25 @@
 # Evens out the black drop shadow on a few 2005 tab icons. GNASH0R's icons carry a black shadow along their bottom and right
 # edges, but the amount varies: the inventory bag has a thick one, the combat swords and the music harp have almost none.
 #
-#   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is at least -MinThickness pixels thick
-#   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to lighten the outline on the left while keeping most of the shadow on the right: -TrimLeft 1, -TrimRight 3 (keeps the right-hand shadow)`n#   -Runs:   shortens every horizontal run of black pixels by one, from its right end (emotes), for a 1px shadow like the prayer icon`n#   -Add:    draws a soft black shadow behind an icon, as a copy of its silhouette moved -AddDepth pixels down and right, at -AddAlpha opacity
+#   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is thick (-ReduceSpec), and shortens the long black runs of the settings wrench (-RunsSpec) on a share of them, so the thinned shadow stays uneven
+#   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to lighten the outline on the left while keeping most of the shadow on the right: -TrimLeft 1, -TrimRight 3 (keeps the right-hand shadow)`n#   -Runs:   shortens every horizontal run of black pixels by one, from its right end (emotes), for a 1px shadow like the prayer icon`n#   -Add:    draws a black shadow behind an icon as a copy of its silhouette moved down and right: the first pixel row fully, the second only on -AddOuterChance % of its pixels, so the edge is blotchy like the inventory and magic shadows
 #            (combat, music, emotes); the icon itself is never touched
 #
-# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-Add combat,music,emotes] [-AddDepth 1] [-AddAlpha 150]
+# usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-Add combat,music,emotes] [-AddDepth 2] [-AddAlpha 190] [-AddOuterChance 35]
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [string[]] $Reduce = @('inventory'),
+    [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
     [int] $ReduceLayers = 1,
     [string[]] $Add = @('combat', 'music', 'emotes'),
-    [int] $AddDepth = 1,
-    [int] $MinThickness = 2,
-    [int] $AddAlpha = 150,
+    [int] $AddDepth = 2,
+    [int] $AddAlpha = 190,
+    # the outer layer is only drawn on this % of its pixels, which gives the irregular, blotchy edge of the inventory and magic shadows
+    [int] $AddOuterChance = 35,
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
-    [string[]] $Runs = @()
+    # icon = @(minimum run length, % of runs to shorten); the settings wrench
+    [hashtable] $RunsSpec = @{ options = @(3, 70) }
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
@@ -28,7 +30,9 @@ public static class IconShadow
 {
     static bool Black(Color c) { return c.A > 0 && c.R + c.G + c.B <= 12; }
 
-    public static int Reduce(string path, int layers, int minThick)
+    static int H(int x, int y) { unchecked { uint h = (uint)(x * 73856093) ^ (uint)(y * 19349663); h ^= h >> 13; h *= 1274126177u; return (int)((h ^ (h >> 16)) % 100u); } }
+
+    public static int Reduce(string path, int layers, int minThick, int chance)
     {
         int removed = 0;
         using (var src = new Bitmap(path))
@@ -48,7 +52,7 @@ public static class IconShadow
                             int nx = x + d.X, ny = y + d.Y;
                             if (nx >= bmp.Width || ny >= bmp.Height || bmp.GetPixel(nx, ny).A == 0) { open = true; break; }
                         }
-                        if (open) { int th = 0; int tx = x, ty = y; while (tx >= 0 && ty >= 0 && Black(bmp.GetPixel(tx, ty))) { th++; tx--; ty--; } if (th >= minThick) kill.Add(new Point(x, y)); }
+                        if (open) { int th = 0; int tx = x, ty = y; while (tx >= 0 && ty >= 0 && Black(bmp.GetPixel(tx, ty))) { th++; tx--; ty--; } if (th >= minThick && H(x, y) < chance) kill.Add(new Point(x, y)); }
                     }
                 foreach (var p in kill) { bmp.SetPixel(p.X, p.Y, Color.FromArgb(0, 0, 0, 0)); removed++; }
             }
@@ -84,8 +88,8 @@ public static class IconShadow
         return removed;
     }
 
-    // shortens each horizontal run of 2 or more black pixels by one, from its right end, so a 2px shadow becomes 1px
-    public static int ThinRuns(string path)
+    // shortens horizontal runs of black pixels (at least minLen long) by one, from the right end, on a share of them, which thins a shadow while keeping it uneven
+    public static int ThinRuns(string path, int minLen, int chance)
     {
         int removed = 0;
         using (var src = new Bitmap(path))
@@ -99,7 +103,7 @@ public static class IconShadow
                 {
                     if (!Black(src.GetPixel(x, y))) { x++; continue; }
                     int s = x; while (x < src.Width && Black(src.GetPixel(x, y))) x++;
-                    if (x - s >= 2) { bmp.SetPixel(x - 1, y, Color.FromArgb(0, 0, 0, 0)); removed++; }
+                    if (x - s >= minLen && H(x, y) < chance) { bmp.SetPixel(x - 1, y, Color.FromArgb(0, 0, 0, 0)); removed++; }
                 }
             }
             src.Dispose();
@@ -109,7 +113,7 @@ public static class IconShadow
         return removed;
     }
 
-    public static int Add(string path, int depth, int alpha)
+    public static int Add(string path, int depth, int alpha, int outerChance)
     {
         int added = 0;
         using (var src = new Bitmap(path))
@@ -123,6 +127,7 @@ public static class IconShadow
                         if (src.GetPixel(x, y).A == 0) continue;
                         int nx = x + d, ny = y + d;
                         if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
+                        if (d > 1 && H(nx, ny) >= outerChance) continue;
                         if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(alpha, 0, 0, 0)); added++; }
                     }
             src.Dispose();
@@ -135,7 +140,7 @@ public static class IconShadow
 '@
 
 $Pack = (Get-Item $Pack).FullName
-foreach ($n in $Reduce) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, $MinThickness)) shadow pixels removed" }
+foreach ($n in $ReduceSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, [int]$ReduceSpec[$n][0], [int]$ReduceSpec[$n][1])) shadow pixels removed" }
 foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
-foreach ($n in $Runs) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f)) shadow pixels removed from 2px runs" }
-foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth, $AddAlpha)) shadow pixels added" }
+foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
+foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth, $AddAlpha, $AddOuterChance)) shadow pixels added" }
