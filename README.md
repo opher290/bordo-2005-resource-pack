@@ -34,9 +34,9 @@ On the opaque chatbox this pack recolours the chat text to the Bordo palette:
 | Text | Colour |
 | --- | --- |
 | Public chat, channel names, examine highlights | `#49ace9` |
-| Private messages, friends / clan / guest clan chat messages | `#e66533` |
+| Private messages, friends / clan / guest clan chat messages | `#e34e1c` |
 | Game and examine highlights | `#e97749` |
-| Private message highlights | `#0094f0` |
+| Private message highlights | `#6196b8` |
 | Game, server, examine and info text, other highlights | `#272022` |
 
 The transparent chatbox keeps its default colours. If you prefer your own chat colours, turn off **Allow chat colors to be changed** in the Resource packs plugin settings.
