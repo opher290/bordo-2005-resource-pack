@@ -26,7 +26,7 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 | --- | --- |
 | Buttons, tab stones, bank, scrollbars, checkboxes and sliders, GE, equipment slots, dialog panels | Taken as-is from the [main Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so they match it exactly |
 | Side panel, tab rows, minimap frame, window edges, the black steel dialog borders, chat buttons | The original 2005 art recoloured to the Bordo rose-greys (`#1a1516` through `#33292a` to `#a88a86`), darkened to the main pack's tone |
-| Chat parchment | Lux creams, keeping the original shading and burnt edges, matched to the main pack's chat fill (`#c7b691`) |
+| Chat parchment | Lux creams, keeping the original shading and torn edges, with the burnt edge moved onto the Bordo rose-greys |
 | Compass dial | Keeps its red-and-orange look, moved onto Bordo red `#8c2f45` to a brighter red `#b83a48` |
 | Overlay, borders and separators | The main pack's `vars.toml` and `overrides.toml`, unchanged |
 | Icons, emotes, prayer and quest art, selected tabs | Left exactly as the original author drew them |
@@ -42,12 +42,13 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 `tools/build.ps1` regenerates the pack from a checkout of the original (`pack-2005`):
 
 - `recolor.ps1 -Scheme bordo` recolours the shell sprites onto the Bordo ramp (`schemes.ps1`). The 2005 stone is about twice as bright as vanilla's, so with `-RefSrc` (the vanilla sample pack, passed as `-Vanilla` to `build.ps1`) each sprite is darkened to its vanilla counterpart's tone. `-MainPack` is a checkout of the main Bordo pack: its buttons, stones, bank, scrollbars, options, GE, equipment and dialog sprites are used as-is, and it fills anything the original leaves out.
-- `tonematch.ps1` nudges the recoloured frames onto the main pack's exact tone, `compass.ps1` recolours the compass dial, and `icon.ps1` builds `icon.png`.
+- `tonematch.ps1` nudges the recoloured frames onto the main pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, and `icon.ps1` builds `icon.png`.
 
 ## Credits
 
 - **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
 - [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
+
 
 

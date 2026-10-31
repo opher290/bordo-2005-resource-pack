@@ -1,4 +1,4 @@
-# Rebuilds the pack from GNASH0R's 2005 pack (Resizeable): https://github.com/melkypie/resource-packs/tree/pack-2005
+﻿# Rebuilds the pack from GNASH0R's 2005 pack (Resizeable): https://github.com/melkypie/resource-packs/tree/pack-2005
 #
 # The 2005-specific shell art (chatbox and its buttons, the frames, minimap, black steel dialog borders) is recoloured
 # to the scheme. Buttons, tab stones, bank, scrollbars, options, GE, equipment and dialog panels are taken as-is from the
@@ -53,4 +53,8 @@ Get-ChildItem $MainPack -Recurse -File | Where-Object { $_.FullName -notmatch '\
 # the compass dial keeps its red-and-orange look, moved onto the scheme's red and orange
 & (Join-Path $PSScriptRoot 'compass.ps1') -Src $Src -Out $Out -Scheme $Scheme
 
+# the parchment's burnt edge is a dark olive-brown of its own: move it onto the scheme's shell ramp
+& (Join-Path $PSScriptRoot 'chatedge.ps1') -Out $Out -Scheme $Scheme
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
+
