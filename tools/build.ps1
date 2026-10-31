@@ -86,7 +86,7 @@ foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag', 
 # the music harp sits better in the brick red corner stone one pixel up and two left, and the sailing anchor two pixels up
 & (Join-Path $PSScriptRoot 'nudge.ps1') -Pack $Out
 
-# the 2005 shadow formula, a solid black shadow two pixels deep down and to the right, for the icons that lack it: combat, inventory, prayer, emotes and the sailing anchor
+# the 2005 shadow formula, a solid black shadow two pixels deep down and to the right, for the icons that lack it: combat, prayer, emotes and the sailing anchor, plus a soft row on the music harp
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
 

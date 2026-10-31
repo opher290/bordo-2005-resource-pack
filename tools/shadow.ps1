@@ -11,9 +11,9 @@ param(
     [hashtable] $ReduceSpec = @{},
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{},
+    [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
     # icon = @(depth in pixels, 1 = keep notches clear, opacity 0-255 of the second pixel row if there is one): the Quests and Friends shadow, in black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(2, 1); inventory = @(2, 0); prayer = @(2, 0); emotes = @(2, 0); sailing = @(2, 1) },
+    [hashtable] $SolidSpec = @{ combat = @(2, 1); prayer = @(2, 0); emotes = @(2, 0); sailing = @(2, 1) },
     # none at the moment: the bottom-right shadow alone is the 2005 formula
     [string[]] $OutlineList = @(),
     [string[]] $Trim = @(),
