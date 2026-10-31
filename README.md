@@ -1,4 +1,4 @@
-﻿# Noctis Bordo 2005
+# Noctis Bordo 2005
 
 GNASH0R's [2005](https://github.com/melkypie/resource-packs/tree/pack-2005) interface, recoloured to the **Bordo** variant of the [Noctis](https://github.com/liviuschera/noctis) colour scheme for the RuneLite [Resource Packs](https://github.com/melkypie/resource-packs) plugin, with the chat parchment in Noctis **Lux** creams. Resizeable mode.
 
@@ -39,7 +39,7 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 
 - [Noctis Bordo](https://github.com/opher290/bordo-resource-pack): the vanilla-interface version of this palette.
 - [Noctis Bordo 2005 Fixed Mode](https://github.com/opher290/bordo-2005-fixed-mode-resource-pack): the Fixed mode version of this pack.
-- [Gruvbox 2005](https://github.com/opher290/gruvbox-2005-resource-pack): the same 2005 approach on a warm grey palette.
+- [2005 Gruvbox Dark Resizable Mode](https://github.com/opher290/gruvbox-2005-resource-pack): the same 2005 approach on a warm grey palette.
 
 ## Building it yourself
 
