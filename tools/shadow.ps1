@@ -17,8 +17,8 @@ param(
     [int] $TrimRight = 3,
     # icon = @(minimum run length, % of runs to shorten); the settings wrench
     [hashtable] $RunsSpec = @{},
-    # icon = @(most black pixels kept on the left, on the right) of each row; the settings wrench ends up with an even 2px shadow
-    [hashtable] $TrimSpec = @{ options = @(1, 2) }
+    # icon = @(most black pixels kept on the left, on the right) of each row; none by default
+    [hashtable] $TrimSpec = @{}
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
