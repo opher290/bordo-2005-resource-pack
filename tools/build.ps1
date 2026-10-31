@@ -69,5 +69,8 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 # the bank PIN screen's red marble buttons and tiles are tinted, and the olive marble behind Exit moves onto the shell ramp
 & (Join-Path $PSScriptRoot 'pin.ps1') -Pack $Out -Vanilla $Vanilla -Scheme $Scheme
 
+# GNASH0R's 2005 pack ships the Chat-channel tab icon empty; use the 2005 Overhaul pack's (by Demonseance), kept in tools\assets
+Copy-Item (Join-Path $PSScriptRoot 'assets\clan_chat.png') (Join-Path $Out 'tab\clan_chat.png') -Force
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
