@@ -3,21 +3,21 @@
 #
 #   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is at least -MinThickness pixels thick
 #   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to lighten the outline on the left while keeping most of the shadow on the right: -TrimLeft 1, -TrimRight 3 (keeps the right-hand shadow)`n#   -Runs:   shortens every horizontal run of black pixels by one, from its right end (emotes), for a 1px shadow like the prayer icon`n#   -Add:    draws a soft black shadow behind an icon, as a copy of its silhouette moved -AddDepth pixels down and right, at -AddAlpha opacity
-#            (combat, music); the icon itself is never touched
+#            (combat, music, emotes); the icon itself is never touched
 #
-# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs emotes] [-Add combat,music] [-AddDepth 1] [-AddAlpha 150]
+# usage: shadow.ps1 -Pack <pack dir> [-Reduce inventory] [-ReduceLayers 1] [-MinThickness 2] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-Add combat,music,emotes] [-AddDepth 1] [-AddAlpha 150]
 param(
     [Parameter(Mandatory)] [string] $Pack,
     [string[]] $Reduce = @('inventory'),
     [int] $ReduceLayers = 1,
-    [string[]] $Add = @('combat', 'music'),
+    [string[]] $Add = @('combat', 'music', 'emotes'),
     [int] $AddDepth = 1,
     [int] $MinThickness = 2,
     [int] $AddAlpha = 150,
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
-    [string[]] $Runs = @('emotes')
+    [string[]] $Runs = @()
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
