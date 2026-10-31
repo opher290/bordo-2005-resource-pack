@@ -78,10 +78,10 @@ foreach ($n in 'clan_chat', 'clan_channel', 'guest_clan_channel', 'regular_group
 foreach ($n in 'deposit_inventory', 'deposit_equipment', 'deposit_looting_bag', 'worn_items') { Copy-Item (Join-Path $PSScriptRoot "assets\bank\$n.png") (Join-Path $Out "bank\$n.png") -Force }
 & (Join-Path $PSScriptRoot 'depositoutline.ps1') -Pack $Out
 
-# the 2005 Overhaul pack's tab icons (by Demonseance), placed exactly where GNASH0R has each icon so the resizable layout keeps its alignment
+# the 2005 Overhaul pack's tab icons (by Demonseance), placed exactly where GNASH0R has each icon so the resizable layout keeps its alignment (the music harp stays GNASH0R's, the sailing helm is scaled to GNASH0R's size)
 & (Join-Path $PSScriptRoot 'overhaul.ps1') -Pack $Out
 
-# the black drop shadow on the tab icons varies: give stats and prayer a solid 2px, and combat a solid 1px, down-right shadow like the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, and add a soft row to the music harp and emotes figure
+# the black drop shadow on the tab icons varies: give stats and prayer a solid 2px, and combat a solid 1px, down-right shadow like the Quests and Friends icons, thin it a little on the inventory bag and the friends and ignore smileys, add a soft row to the music harp and give the emotes figure a black outline and a 2px shadow
 & (Join-Path $PSScriptRoot 'shadow.ps1') -Pack $Out
 
 
