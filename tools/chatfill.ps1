@@ -6,7 +6,7 @@
 # (-Flatten) so the darker patches along the tears stop standing out. Where the sprite has a dark outline round the torn
 # edge (the 2005 chat box), the outline is blended part of the way towards the cream (-Soften) instead of staying near black.
 #
-# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.6] [-Soften 0.35] [-Cutoff 120]
+# usage: chatfill.ps1 -Out <pack dir> [-Cream e6d7b2] [-Flatten 0.6] [-Soften 0.35] [-Cutoff 120] [-Files chatbox\background.png,chatbox\make_all_background.png]
 param(
     [Parameter(Mandatory)] [string] $Out,
     [string] $Cream = 'e6d7b2',
@@ -15,7 +15,9 @@ param(
     # 0 keeps the outline as it is, 1 turns it into the cream
     [double] $Soften = 0.35,
     # brightness below which a pixel is outline or frame
-    [double] $Cutoff = 120
+    [double] $Cutoff = 120,
+    # sprites to lift, relative to the pack folder; the Make-all panel sits in the chat area and must match
+    [string[]] $Files = @('chatbox\background.png', 'chatbox\make_all_background.png')
 )
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
@@ -47,6 +49,7 @@ public static class ChatFill
                 double lum = Lum(px, i);
                 if (lum >= 150 && lum <= 215 && px[i + 2] > px[i + 1] && px[i + 1] > px[i]) { sum += lum; cnt++; }
             }
+            if (cnt == 0) return "no parchment in this sprite, left as it is";
             double refLum = sum / cnt;
             double creamLum = 0.299 * cream[0] + 0.587 * cream[1] + 0.114 * cream[2];
 
@@ -81,4 +84,4 @@ public static class ChatFill
 
 $Out = (Get-Item $Out).FullName
 $rgb = [int[]]@([Convert]::ToInt32($Cream.Substring(0, 2), 16), [Convert]::ToInt32($Cream.Substring(2, 2), 16), [Convert]::ToInt32($Cream.Substring(4, 2), 16))
-"chatbox\background.png: " + [ChatFill]::Apply((Join-Path $Out 'chatbox\background.png'), $rgb, $Flatten, $Soften, $Cutoff)
+foreach ($f in $Files) { "${f}: " + [ChatFill]::Apply((Join-Path $Out $f), $rgb, $Flatten, $Soften, $Cutoff) }
