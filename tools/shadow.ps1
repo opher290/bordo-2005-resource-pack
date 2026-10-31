@@ -2,19 +2,16 @@
 # edges, but the amount varies: the inventory bag has a thick one, the combat swords and the music harp have almost none.
 #
 #   -Reduce: thins the black shadow on the bottom and right of an icon (inventory), only where it is thick (-ReduceSpec), and shortens the long black runs of the settings wrench (-RunsSpec) on a share of them, so the thinned shadow stays uneven
-#   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to lighten the outline on the left while keeping most of the shadow on the right: -TrimLeft 1, -TrimRight 3 (keeps the right-hand shadow)`n#   -Runs:   shortens every horizontal run of black pixels by one, from its right end (emotes), for a 1px shadow like the prayer icon`n#   -Add:    draws a black shadow behind an icon as a copy of its silhouette moved down and right: the first pixel row fully, the second only on -AddOuterChance % of its pixels, so the edge is blotchy like the inventory and magic shadows
-#            (combat, music, emotes); the icon itself is never touched
+#   -Trim:   caps the black edge on the left and right of an icon row by row (friends), to lighten the outline on the left while keeping most of the shadow on the right: -TrimLeft 1, -TrimRight 3 (keeps the right-hand shadow)`n#   -Runs:   shortens every horizontal run of black pixels by one, from its right end (emotes), for a 1px shadow like the prayer icon`n#   -Add:    draws a black shadow behind an icon as a copy of its silhouette moved down and right: the first pixel row fully, the second only on a share of its pixels (-AddSpec), so the edge is blotchy like the inventory and magic shadows
+#            (combat, music, emotes, prayer); the icon itself is never touched
 #
-# usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-Add combat,music,emotes] [-AddDepth 2] [-AddAlpha 190] [-AddOuterChance 35]
+# usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-AddSpec @{ combat = @(2,150,25); ... }]
 param(
     [Parameter(Mandatory)] [string] $Pack,
     [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
     [int] $ReduceLayers = 1,
-    [string[]] $Add = @('combat', 'music', 'emotes'),
-    [int] $AddDepth = 2,
-    [int] $AddAlpha = 190,
-    # the outer layer is only drawn on this % of its pixels, which gives the irregular, blotchy edge of the inventory and magic shadows
-    [int] $AddOuterChance = 35,
+    # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn); the second row is what makes the edge blotchy
+    [hashtable] $AddSpec = @{ combat = @(2, 150, 25); music = @(2, 150, 25); emotes = @(2, 110, 15); prayer = @(1, 130, 0) },
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
@@ -143,4 +140,4 @@ $Pack = (Get-Item $Pack).FullName
 foreach ($n in $ReduceSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Reduce($f, $ReduceLayers, [int]$ReduceSpec[$n][0], [int]$ReduceSpec[$n][1])) shadow pixels removed" }
 foreach ($n in $Trim) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Trim($f, $TrimLeft, $TrimRight)) edge pixels trimmed" }
 foreach ($n in $RunsSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::ThinRuns($f, [int]$RunsSpec[$n][0], [int]$RunsSpec[$n][1])) shadow pixels removed from long runs" }
-foreach ($n in $Add) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, $AddDepth, $AddAlpha, $AddOuterChance)) shadow pixels added" }
+foreach ($n in $AddSpec.Keys) { $f = Join-Path $Pack "tab\$n.png"; "tab\$n.png: $([IconShadow]::Add($f, [int]$AddSpec[$n][0], [int]$AddSpec[$n][1], [int]$AddSpec[$n][2])) shadow pixels added" }
