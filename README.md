@@ -8,7 +8,13 @@ No sprite is redrawn. The 2005-specific art keeps its original shapes, shading a
 
 ## Screenshots
 
-![Bank and chatbox in Resizeable mode](screenshots/bank.webp)
+![Skills tab in Resizeable mode](screenshots/skills.webp)
+
+![Settings and chatbox in Resizeable mode](screenshots/settings.webp)
+
+![Bank in Resizeable mode](screenshots/bank.webp)
+
+Screenshots are taken in RuneLite at a game size of 1376x905 with Stretched Mode set to 70%.
 
 ## Installation
 
