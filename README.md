@@ -20,6 +20,13 @@ If you want to use other packs afterwards, make sure to disable the **Interface 
 
 As the original notes, 2005 can't match the original exactly in Resizeable mode because of the plugin's limits.
 
+### Recommended layout
+
+Set **Game client layout** to **Resizable - Classic layout** (Settings > Display Settings). This pack is built for it.
+
+- **Resizable - Modern layout** works, but it doesn't look its best. Interface Styles' 2005 gameframe and the 2005 sprites are placed for the classic layouts, so in Modern the tab icons don't sit centred on their stones.
+- **Fixed - Classic layout** isn't supported by this pack.
+
 ## What changes
 
 | Area | Source |
