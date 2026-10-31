@@ -37,7 +37,8 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 | Compass dial | Keeps its red-and-orange look, moved onto Bordo red `#8c2f45` to a brighter red `#b83a48` |
 | Overlay, borders and separators | The Vanilla Noctis Bordo pack's `vars.toml` and `overrides.toml`, unchanged |
 | Selected tab stones | GNASH0R's own chamfered selected stones, tinted to brick red #8f3f2a and keeping their shape, shading and outline |
-| Icons, emotes, prayer and quest art | Left exactly as the original author drew them |
+| Emote plates, and the grey squares behind the equipment stats, prices, items-lost and call-follower icons | The original grey-olive plates moved onto the Bordo rose-greys; the yellow and green labels and the icon art stay as drawn |
+| Icons, prayer and quest art | Left exactly as the original author drew them |
 
 ## Related packs
 
@@ -49,7 +50,7 @@ Set **Game client layout** to **Resizable - Classic layout** (Settings > Display
 `tools/build.ps1` regenerates the pack from a checkout of the original (`pack-2005`):
 
 - `recolor.ps1 -Scheme bordo` recolours the shell sprites onto the Bordo ramp (`schemes.ps1`). The 2005 stone is about twice as bright as vanilla's, so with `-RefSrc` (the vanilla sample pack, passed as `-Vanilla` to `build.ps1`) each sprite is darkened to its vanilla counterpart's tone. `-MainPack` is a checkout of the main Bordo pack: its buttons, stones, bank, scrollbars, options, GE, equipment and dialog sprites are used as-is, and it fills anything the original leaves out.
-- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, `stone.ps1` tints the selected-tab stones to brick red, and `icon.ps1` builds `icon.png`.
+- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, `emote.ps1` and `iconbg.ps1` move the emote and icon-button plates onto the ramp, `stone.ps1` tints the selected-tab stones to brick red, and `icon.ps1` builds `icon.png`.
 
 ## Credits
 

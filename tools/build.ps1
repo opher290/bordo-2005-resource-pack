@@ -62,5 +62,9 @@ Get-ChildItem (Join-Path $Src 'tab') -Filter 'stone_*_selected.png' | Copy-Item 
 # the red selected-tab stones are tinted to brick red, keeping GNASH0R's shapes and shading
 & (Join-Path $PSScriptRoot 'stone.ps1') -Pack $Out
 
+# the grey-olive plates behind the emote labels and a few icon buttons move onto the shell ramp; the label text and icon art stay as drawn
+& (Join-Path $PSScriptRoot 'emote.ps1') -Pack $Out -Scheme $Scheme
+& (Join-Path $PSScriptRoot 'iconbg.ps1') -Pack $Out -Scheme $Scheme
+
 & (Join-Path $PSScriptRoot 'icon.ps1') -Pack $Out
 
