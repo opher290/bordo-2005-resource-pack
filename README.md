@@ -47,7 +47,7 @@ The transparent chatbox keeps its default colours. If you prefer your own chat c
 | --- | --- |
 | Buttons, tab stones, bank, scrollbars, checkboxes and sliders, GE, equipment slots, dialog panels | Taken as-is from the [Vanilla Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so they match it exactly |
 | Side panel, tab rows, minimap frame, window edges, the black steel dialog borders, chat buttons | The original 2005 art recoloured to the Bordo rose-greys (`#1a1516` through `#33292a` to `#a88a86`), darkened to the Vanilla Noctis Bordo pack's tone |
-| Chat parchment | Lux creams, keeping the original shading and torn edges, with the burnt edge moved onto the Bordo rose-greys |
+| Chat parchment | Lifted onto the Lux cream `#e6d7b2`, keeping the original shading and torn edges, with the dark outline of the tear softened into the cream and the burnt edge moved onto the Bordo rose-greys |
 | Compass dial | Keeps the original smooth gradient, from a Bordo wine rim (`#84303f`) through red-orange to a yellow-orange `#f2b13e` centre |
 | Overlay, borders and separators | The Vanilla Noctis Bordo pack's `vars.toml` and `overrides.toml`, unchanged |
 | Selected tab stones | GNASH0R's own chamfered selected stones, tinted to brick red #8f3f2a and keeping their shape, shading and outline |
@@ -67,7 +67,7 @@ The transparent chatbox keeps its default colours. If you prefer your own chat c
 `tools/build.ps1` regenerates the pack from a checkout of the original (`pack-2005`):
 
 - `recolor.ps1 -Scheme bordo` recolours the shell sprites onto the Bordo ramp (`schemes.ps1`). The 2005 stone is about twice as bright as vanilla's, so with `-RefSrc` (the vanilla sample pack, passed as `-Vanilla` to `build.ps1`) each sprite is darkened to its vanilla counterpart's tone. `-MainPack` is a checkout of the main Bordo pack: its buttons, stones, bank, scrollbars, options, GE, equipment and dialog sprites are used as-is, and it fills anything the original leaves out.
-- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, `emote.ps1` and `iconbg.ps1` move the emote and icon-button plates onto the ramp, `pin.ps1` tints the bank PIN screen, `shadow.ps1` evens out the tab icon drop shadows, `stone.ps1` tints the selected-tab stones to brick red, and `icon.ps1` builds `icon.png`.
+- `tonematch.ps1` nudges the recoloured frames onto the Vanilla Noctis Bordo pack's exact tone, `compass.ps1` recolours the compass dial, `chatedge.ps1` moves the chat parchment's burnt edge onto the Bordo ramp, `chatfill.ps1` lifts the parchment onto the Lux cream and softens the tear outline, `emote.ps1` and `iconbg.ps1` move the emote and icon-button plates onto the ramp, `pin.ps1` tints the bank PIN screen, `shadow.ps1` evens out the tab icon drop shadows, `stone.ps1` tints the selected-tab stones to brick red, and `icon.ps1` builds `icon.png`.
 
 ## Credits
 
