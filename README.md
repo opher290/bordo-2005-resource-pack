@@ -53,7 +53,7 @@ The transparent chatbox keeps its default colours. If you prefer your own chat c
 | Emote plates, and the grey squares behind the equipment stats, prices, items-lost and call-follower icons | The original grey-olive plates moved onto the Bordo rose-greys; the yellow and green labels and the icon art stay as drawn |
 | Bank PIN screen | The red marble buttons tinted to Bordo wine red `#8c2f45`, keeping the bevel and texture; the olive marble behind Exit / I don't know it moved onto the Bordo rose-greys |
 | Seven tab icons: Chat-channel, Clan, Guest clan, the three group ironman tabs and Red minigames | Blank in the original; taken from the [2005 Overhaul](https://github.com/melkypie/resource-packs/tree/pack-2005-overhaul) pack by Demonseance, as drawn; only the Chat-channel icon is moved 5px right and 2px down to sit in its corner stone |
-| Inventory, combat, music and friends tab icons | GNASH0R's icons with the black drop shadow evened out to match the Quests icon: a little thinned on the inventory bag and the friends smiley, a soft one added to the combat swords and the music harp |
+| Inventory, combat, music, friends and emotes tab icons | GNASH0R's icons with the black drop shadow evened out to match the Quests icon: a little thinned on the inventory bag, the friends smiley and the emotes figure, a soft one added to the combat swords and the music harp |
 | Other icons, prayer and quest art | Left exactly as the original author drew them |
 
 ## Related packs
