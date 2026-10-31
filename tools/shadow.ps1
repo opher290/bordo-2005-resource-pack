@@ -8,14 +8,14 @@
 # usage: shadow.ps1 -Pack <pack dir> [-ReduceSpec @{ inventory = @(2,100) }] [-RunsSpec @{ options = @(3,70) }] [-Trim friends,ignores] [-TrimLeft 1] [-TrimRight 3] [-Runs <none by default>] [-AddSpec @{ combat = @(2,150,25); ... }]
 param(
     [Parameter(Mandatory)] [string] $Pack,
-    [hashtable] $ReduceSpec = @{ inventory = @(2, 100) },
+    [hashtable] $ReduceSpec = @{},
     [int] $ReduceLayers = 1,
     # icon = @(depth in pixels, opacity 0-255, % of the second pixel row that is drawn, 1 = keep notches clear); the second row is what makes the edge blotchy
-    [hashtable] $AddSpec = @{ music = @(1, 120, 0, 1) },
+    [hashtable] $AddSpec = @{},
     # icon = @(depth in pixels, 1 = keep notches clear, opacity 0-255 of the second pixel row if there is one): the Quests and Friends shadow, in black, so the icons share one amount and angle
-    [hashtable] $SolidSpec = @{ combat = @(1, 1); stats = @(2, 0); prayer = @(2, 0); emotes = @(2, 0, 130); sailing = @(2, 1, 130) },
-    # icons that also get a one pixel black outline all round (none at the moment: the emotes figure looked too heavy with one)
-    [string[]] $OutlineList = @(),
+    [hashtable] $SolidSpec = @{ combat = @(2, 1); quests = @(2, 0); inventory = @(2, 0); equipment = @(2, 0); prayer = @(2, 0); magic = @(2, 0); friends = @(2, 0); ignores = @(2, 0); account_management = @(2, 0); emotes = @(2, 0); music = @(2, 0); sailing = @(2, 1) },
+    # the settings wrench style: a one pixel black outline all round, then the shadow above (the stats icon, the skills, gets no treatment at all and the Log out icon is not treated yet)
+    [string[]] $OutlineList = @('combat', 'quests', 'inventory', 'equipment', 'prayer', 'magic', 'friends', 'ignores', 'account_management', 'emotes', 'music', 'sailing'),
     [string[]] $Trim = @('friends', 'ignores'),
     [int] $TrimLeft = 1,
     [int] $TrimRight = 3,
@@ -132,7 +132,7 @@ public static class IconShadow
                     foreach (var d in new[] { new Point(1, 0), new Point(-1, 0), new Point(0, 1), new Point(0, -1) })
                     {
                         int nx = x + d.X, ny = y + d.Y;
-                        if (nx < 0 || ny < 0 || nx >= src.Width || ny >= src.Height) throw new Exception("outline would leave the sprite: " + path);
+                        if (nx < 0 || ny < 0 || nx >= src.Width || ny >= src.Height) continue; // a pixel that would fall outside the sprite is dropped
                         if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(255, 0, 0, 0)); added++; }
                     }
                 }
@@ -158,7 +158,7 @@ public static class IconShadow
                         var c = src.GetPixel(x, y);
                         if (c.A == 0 || Black(c)) continue;
                         int nx = x + d, ny = y + d;
-                        if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
+                        if (nx >= src.Width || ny >= src.Height) continue; // a pixel that would fall outside the sprite is dropped
                         if (skipEnclosed) { bool inside = false; for (int k = 1; k <= 6 && nx + k < src.Width; k++) if (src.GetPixel(nx + k, ny).A > 0) inside = true; if (inside) continue; }
                         if (bmp.GetPixel(nx, ny).A == 0) { bmp.SetPixel(nx, ny, Color.FromArgb(d == 1 ? 255 : outerAlpha, 0, 0, 0)); added++; }
                     }
@@ -181,7 +181,7 @@ public static class IconShadow
                     {
                         if (src.GetPixel(x, y).A == 0) continue;
                         int nx = x + d, ny = y + d;
-                        if (nx >= src.Width || ny >= src.Height) throw new Exception("shadow would leave the sprite: " + path);
+                        if (nx >= src.Width || ny >= src.Height) continue; // a pixel that would fall outside the sprite is dropped
                         if (d > 1 && H(nx, ny) >= outerChance) continue;
                         // a notch between two parts of the icon (the swords' crossing) stays clear: skip a shadow pixel with icon art within 6 pixels to its right
                         if (skipEnclosed) { bool inside = false; for (int k = 1; k <= 6 && nx + k < src.Width; k++) if (src.GetPixel(nx + k, ny).A > 0) inside = true; if (inside) continue; }
