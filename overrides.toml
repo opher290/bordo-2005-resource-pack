@@ -568,11 +568,11 @@ opacity="${opacity.opaque}"
 
 [make_all.background]
 color="${color.make_all_selected}"
-opacity="${opacity.opaque}"
+opacity="${opacity.make_all_selected_opacity}"
 
 [make_all.quantity]
 color="${color.make_all_selected}"
-opacity="${opacity.opaque}"
+opacity="${opacity.make_all_selected_opacity}"
 
 [minigame_teleports.border.inner]
 color="${color.border_inner}"
