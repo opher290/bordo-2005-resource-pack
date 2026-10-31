@@ -34,6 +34,7 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 ## Related packs
 
 - [Noctis Bordo](https://github.com/opher290/bordo-resource-pack): the vanilla-interface version of this palette.
+- [Noctis Bordo 2005 Fixed Mode](https://github.com/opher290/bordo-2005-fixed-mode-resource-pack): the Fixed mode version of this pack.
 - [Gruvbox 2005](https://github.com/opher290/gruvbox-2005-resource-pack): the same 2005 approach on a warm grey palette.
 
 ## Building it yourself
@@ -48,4 +49,5 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 - **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
 - [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
+
 
