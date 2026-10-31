@@ -1,8 +1,8 @@
 ﻿# Noctis Bordo 2005
 
-[2005](https://github.com/melkypie/resource-packs/tree/pack-2005) by **GNASH0R**, recoloured to the **Bordo** variant of the [Noctis](https://github.com/liviuschera/noctis) colour scheme for the RuneLite [Resource Packs](https://github.com/melkypie/resource-packs) plugin, with the chat parchment in Noctis **Lux** creams.
+GNASH0R's [2005](https://github.com/melkypie/resource-packs/tree/pack-2005) interface, recoloured to the **Bordo** variant of the [Noctis](https://github.com/liviuschera/noctis) colour scheme for the RuneLite [Resource Packs](https://github.com/melkypie/resource-packs) plugin, with the chat parchment in Noctis **Lux** creams. Resizeable mode.
 
-No sprite is redrawn. The 2005-specific art keeps its original shapes, shading and transparency and only the colours change, while the standard buttons and stones are the same recoloured vanilla sprites as the main [Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack). The compass dial keeps its red-and-orange look in Bordo reds, and icons are left exactly as the original author drew them.
+No sprite is redrawn. The 2005-specific art keeps its original shapes, shading and transparency and only the colours change, while the standard buttons and stones are the same recoloured vanilla sprites as the main [Noctis Bordo pack](https://github.com/opher290/bordo-resource-pack), so the two sit side by side seamlessly. The compass dial keeps its red-and-orange look in Bordo reds, and icons are left exactly as the original author drew them.
 
 ## Screenshots
 
@@ -31,6 +31,11 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 | Overlay, borders and separators | The main pack's `vars.toml` and `overrides.toml`, unchanged |
 | Icons, emotes, prayer and quest art, selected tabs | Left exactly as the original author drew them |
 
+## Related packs
+
+- [Noctis Bordo](https://github.com/opher290/bordo-resource-pack): the vanilla-interface version of this palette.
+- [Gruvbox 2005](https://github.com/opher290/gruvbox-2005-resource-pack): the same 2005 approach on a warm grey palette.
+
 ## Building it yourself
 
 `tools/build.ps1` regenerates the pack from a checkout of the original (`pack-2005`):
@@ -40,7 +45,6 @@ As the original notes, 2005 can't match the original exactly in Resizeable mode 
 
 ## Credits
 
-- **GNASH0R** for the 2005 pack this is based on.
+- **GNASH0R** for the [2005 pack](https://github.com/melkypie/resource-packs/tree/pack-2005) this is based on: the interface art, layout and icons.
 - [Noctis](https://github.com/liviuschera/noctis) by Liviu Schera for the Bordo and Lux colour schemes.
 - [melkypie](https://github.com/melkypie/resource-packs) for the Resource Packs plugin.
-
